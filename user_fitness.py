@@ -1,6 +1,7 @@
 import utils
 import numpy as np
 
+# nodes should be a dict of all existing nodes : {id: raw_node}
 def get_best_sentence(intent, choices) :
     scores = utils.sentence_similarity(intent, choices)
     top_result = np.argpartition(scores, range(1))[0:1]
@@ -46,4 +47,12 @@ def get_path_length(intent, nodes, DEPTH_THRESHOLD) :
     
     return (curr_node, count)
 
-def user_fitness(DEPTH_THRESHOLD, )
+def user_fitness(intent, nodes, DEPTH_THRESHOLD, DISTANCE_THRESHOLD) :
+    (final_node, path_length) = get_path_length(intent, nodes, DEPTH_THRESHOLD)
+    if (path_length >= DEPTH_THRESHOLD) :
+        return -utils.inf
+    
+    final_sentence = final_node["text"]
+    final_similarity = utils.sentence_similarity(intent, final_sentence)
+    
+    return (DEPTH_THRESHOLD - path_length) + (final_similarity - DISTANCE_THRESHOLD)

@@ -21,4 +21,12 @@ def make_graph(json_file) :
     return
 
 def get_all_nodes(json_file) :
-    return
+    import os, json
+    nodes = {}
+    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), json_file)) as f :
+        j = json.loads(f)
+        for section in j["sections"] :
+            section_id = section["id"]
+            nodes[section_id] = section
+        
+        return nodes
