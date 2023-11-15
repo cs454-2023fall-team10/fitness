@@ -2,8 +2,6 @@ import json
 import os
 import networkx as nx
 
-inf = 10 ** 10
-
 def sentence_similarity(sentence1, sentences) :
     import random
 
