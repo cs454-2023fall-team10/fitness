@@ -41,7 +41,6 @@ def make_graph(json_file):
     return DG
 
 def get_all_nodes(json_file) :
-    import os, json
     nodes = {}
     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), json_file)) as f :
         j = json.loads(f)
