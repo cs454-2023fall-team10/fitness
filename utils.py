@@ -26,6 +26,7 @@ def make_graph(json_file):
 
     with open(file_path, "r") as file:
         data = json.load(file)["sections"]
+
     
     DG = nx.DiGraph()
 
@@ -37,12 +38,9 @@ def make_graph(json_file):
         if section["type"] == "stop":
             continue
         for button in section["buttons"]:
-            DG.add_edge(section["id"], button["nextSectionId"])
+            DG.add_edge(section["id"], button["nextSectionId"], text = button["text"])
 
     return DG
-
-def make_graph(json_file) :
-    return
 
 def get_all_nodes(json_file) :
     import os, json

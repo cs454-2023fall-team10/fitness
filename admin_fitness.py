@@ -22,6 +22,6 @@ def get_admin_fitness(graph):
 def get_depth_threshold(graph):
     num_of_nodes = len(graph.nodes)
     num_of_edges = len(graph.edges)
-    optimal_degrees = math.round(num_of_edges/num_of_nodes)
+    optimal_degrees = round(num_of_edges/num_of_nodes)
     
     return math.log(num_of_nodes, optimal_degrees)
