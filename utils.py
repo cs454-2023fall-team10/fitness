@@ -2,6 +2,8 @@ import json
 import os
 import networkx as nx
 
+
+
 def sentence_similarity(sentence1, sentences) :
     import random
 
@@ -40,12 +42,20 @@ def make_graph(json_file):
 
     return DG
 
-def get_all_nodes(json_file) :
-    nodes = {}
-    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), json_file)) as f :
-        j = json.loads(f)
-        for section in j["sections"] :
-            section_id = section["id"]
-            nodes[section_id] = section
+def load_intents(rel_file_path) :
+    intents = []
+    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_file_path)) as f :
+        for line in f :
+            intents.append(line.rstrip())
+    
+    return intents
+
+# def get_all_nodes(json_file) :
+#     nodes = {}
+#     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), json_file)) as f :
+#         j = json.loads(f)
+#         for section in j["sections"] :
+#             section_id = section["id"]
+#             nodes[section_id] = section
         
-        return nodes
+#         return nodes

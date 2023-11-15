@@ -1,6 +1,8 @@
 import utils
 import numpy as np
 
+INF = 2**31
+
 # nodes should be a dict of all existing nodes : {id: raw_node}
 def get_best_sentence(intent, node) :
     ids = []
@@ -40,7 +42,7 @@ def get_path_length(intent, graph, DEPTH_THRESHOLD) :
 def get_user_fitness(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD) :
     (final_node_id, path_length) = get_path_length(intent, graph, DEPTH_THRESHOLD)
     if (path_length >= DEPTH_THRESHOLD) :
-        return -utils.inf
+        return -INF
     
     # print("path_length: ", path_length)
     final_sentence = graph.nodes[final_node_id]["text"]
@@ -49,9 +51,12 @@ def get_user_fitness(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD) :
     
     return (DEPTH_THRESHOLD - path_length) + (final_similarity - DISTANCE_THRESHOLD)
 
+
 if __name__ == "__main__" :
+    # for test only
     json_file = "lead-homepage.json"
     graph = utils.make_graph(json_file)
+    intents = utils.load_intents("../embedding-metrics/examples/jobs-homepage")
     intent = "가나다"
     DEPTH_THRESHOLD = 10
     DISTANCE_THRESHOLD = 0.5
