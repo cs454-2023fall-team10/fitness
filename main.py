@@ -5,7 +5,7 @@ def fitness(graph, users) :
     nodes = utils.get_all_nodes(json_file_name)
     user_fitness_sum = 0
     
-    DEPTH_THRESHOLD = 10 # admin_fitness.function()
+    DEPTH_THRESHOLD = admin_fitness.get_depth_threshold(graph)
     DISTANCE_THRESHOLD = 0
     alpha = 0.5
 
