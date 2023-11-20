@@ -5,7 +5,7 @@ INF = 2**31
 
 
 # nodes should be a dict of all existing nodes : {id: raw_node}
-def get_best_sentence(intent, node):
+def get_best_sentence(intent, node, similarity_threshold):
     ids = []
     choices = []
 
@@ -16,35 +16,43 @@ def get_best_sentence(intent, node):
     scores = utils.sentence_similarity(intent, choices)
     top_result_idx = np.argpartition(scores, range(1))[0]
 
-    return ids[top_result_idx]
+    # print(scores[top_result_idx], similarity_threshold)
+
+    return "Exit" if scores[top_result_idx] < similarity_threshold else ids[top_result_idx]
 
 
-def get_best_choice(intent, node):
+def get_best_choice(intent, node, similarity_threshold):
     if len(node) == 0:
         return ""
 
-    return get_best_sentence(intent, node)
+    return get_best_sentence(intent, node, similarity_threshold)
 
 
-def get_path_length(intent, graph, DEPTH_THRESHOLD):
+def get_path_length(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD):
     curr_node_id = "A"
     count = 0
-
+    threshold = False
     while count < DEPTH_THRESHOLD:
         curr_node = graph[curr_node_id]
-        next_node_id = get_best_choice(intent, curr_node)
+        similarity_threshold = (DISTANCE_THRESHOLD / DEPTH_THRESHOLD) * count
+        next_node_id = get_best_choice(intent, curr_node, similarity_threshold)
+
         if next_node_id == "":
+            break
+        elif next_node_id == "Exit" :
+            threshold = True
             break
         else:
             curr_node_id = next_node_id
             count += 1
 
-    return (curr_node_id, count)
+    return (curr_node_id, count, threshold)
 
 
 def get_user_fitness(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD):
-    (final_node_id, path_length) = get_path_length(intent, graph, DEPTH_THRESHOLD)
-    if path_length >= DEPTH_THRESHOLD:
+    (final_node_id, path_length, threshold) = get_path_length(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD)
+
+    if path_length >= DEPTH_THRESHOLD or threshold:
         return -INF
 
     # print("path_length: ", path_length)
@@ -52,7 +60,7 @@ def get_user_fitness(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD):
     # print(final_sentence)
     final_similarity = utils.sentence_similarity(intent, final_sentence)
 
-    return (DEPTH_THRESHOLD - path_length) + (final_similarity - DISTANCE_THRESHOLD)
+    return (DEPTH_THRESHOLD - path_length) + final_similarity
 
 
 if __name__ == "__main__":
@@ -62,6 +70,6 @@ if __name__ == "__main__":
     intents = utils.load_intents("../embedding-metrics/examples/jobs-homepage")
     intent = "가나다"
     DEPTH_THRESHOLD = 10
-    DISTANCE_THRESHOLD = 0.5
+    DISTANCE_THRESHOLD = 0.6
     result = get_user_fitness(intent, graph, DEPTH_THRESHOLD, DISTANCE_THRESHOLD)
     print(result)

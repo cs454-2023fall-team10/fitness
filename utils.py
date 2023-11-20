@@ -1,18 +1,23 @@
 import json
 import os
 import networkx as nx
+from models import *
 
+# Sentencebert or OpenAI
+model = BertEmbedding("jhgan/ko-sroberta-multitask")
+# model = OpenAIEmbedding("text-embedding-ada-002")
 
 def sentence_similarity(sentence1, sentences):
-    import random
-
-    # should be fixed
     if type(sentences) is list:
-        # calculate all sentences
-        return [random.random() for _ in range(len(sentences))]
+        results = []
+        for sentence in sentences :
+            results.append(model.sentence_similarity(sentence1, sentence))
+        
+        return results
+    
     elif type(sentences) is str:
-        # calculate one sentence
-        return random.random()
+        return model.sentence_similarity(sentence1, sentences)
+    
     else:
         print("should put sentence(s)")
         return 0
@@ -20,7 +25,7 @@ def sentence_similarity(sentence1, sentences):
 
 def make_graph(json_file):
     dir_path = os.getcwd()  # cs353-2023fall-team10/fitness
-    print(f"dir_path: {dir_path}")
+    # print(f"dir_path: {dir_path}")
     os.chdir("../chatbot-dataset/examples")
     file_path = os.getcwd() + f"/{json_file}"
 
