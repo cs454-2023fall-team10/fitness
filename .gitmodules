@@ -1,0 +1,3 @@
+[submodule "embedding-metrics"]
+	path = embedding-metrics
+	url = https://github.com/cs454-2023fall-team10/embedding-metrics.git
