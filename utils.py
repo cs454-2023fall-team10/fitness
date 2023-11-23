@@ -55,11 +55,15 @@ def make_graph(json_file):
 
 def load_intents(rel_file_path):
     intents = []
-    with open(
-        os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_file_path)
-    ) as f:
-        for line in f:
-            intents.append(line.rstrip())
+    try :
+        with open(
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_file_path)
+        ) as f:
+            for line in f:
+                intents.append(line.rstrip())
+    except :
+        print("Wrong intent_file_path. Can change in functions.py")
+        exit(0)
 
     return intents
 
