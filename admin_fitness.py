@@ -5,6 +5,9 @@ INF = 2**31
 
 def get_admin_fitness(graph):
     num_of_nodes = len(graph.nodes)
+    if num_of_nodes == 0:
+        # If transformation is failed, graph is empty.
+        return -INF
     num_of_edges = len(graph.edges)
     optimal_degrees = (
         round(num_of_edges / num_of_nodes)
@@ -27,6 +30,9 @@ def get_admin_fitness(graph):
 
 def get_depth_threshold(graph):
     num_of_nodes = len(graph.nodes)
+    if num_of_nodes == 0:
+        # If transformation is failed, graph is empty.
+        return -INF
     num_of_edges = len(graph.edges)
     optimal_degrees = (
         round(num_of_edges / num_of_nodes)
