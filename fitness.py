@@ -1,6 +1,6 @@
 from . import utils, user_fitness, admin_fitness, functions
 
-def fitness(graph):
+def fitness(graph, file_path):
     # nodes = graph.nodes
     user_fitness_sum = 0
 
@@ -10,7 +10,7 @@ def fitness(graph):
 
     # Just a list of intents
     # If some features are added in users in future, we need to fix this
-    users = utils.load_intents(functions.intent_file_path)
+    users = utils.load_intents(file_path)
     if len(users) == 0 :
         print("Give appropriate file path. Can fix in functions.py")
         return -2**31

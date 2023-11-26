@@ -53,16 +53,16 @@ def make_graph(json_file):
     return DG
 
 
-def load_intents(rel_file_path):
+def load_intents(file_path):
     intents = []
     try :
         with open(
-            os.path.join(os.path.dirname(os.path.realpath(__file__)), rel_file_path)
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), f"./embedding-metrics/examples/gpt-4-1106-preview/{file_path}")
         ) as f:
             for line in f:
                 intents.append(line.rstrip())
     except :
-        print("Wrong intent_file_path. Can change in functions.py")
+        print(f"Intent for {file_path} does not exist.")
         exit(0)
 
     return intents
