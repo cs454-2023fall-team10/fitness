@@ -1,6 +1,7 @@
-import utils
+from . import utils
 import numpy as np
-import functions
+from . import functions
+
 
 # nodes should be a dict of all existing nodes : {id: raw_node}
 def get_best_sentence(intent, choices, similarity_threshold):

@@ -1,14 +1,14 @@
 import json
 import os
 import networkx as nx
-from models import *
-from functions import model_name
+from . import models
+from .functions import model_name
 
 # Sentencebert or OpenAI
 if model_name == "sentence_bert" :
-    model = BertEmbedding("jhgan/ko-sroberta-multitask")
+    model = models.BertEmbedding("jhgan/ko-sroberta-multitask")
 elif model_name == "openai" :
-    model = OpenAIEmbedding("text-embedding-ada-002")
+    model = models.OpenAIEmbedding("text-embedding-ada-002")
 else :
     print("Select appropriate model. Can fix in functions.py")
     exit(0)

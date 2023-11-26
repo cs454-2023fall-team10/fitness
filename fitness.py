@@ -1,4 +1,4 @@
-import utils, user_fitness, admin_fitness, functions
+from . import utils, user_fitness, admin_fitness, functions
 
 def fitness(graph):
     # nodes = graph.nodes
