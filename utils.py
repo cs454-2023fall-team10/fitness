@@ -32,7 +32,7 @@ def sentence_similarity(sentence1, sentences):
 def make_graph(json_file):
     dir_path = os.getcwd()  # cs353-2023fall-team10/fitness
     # print(f"dir_path: {dir_path}")
-    os.chdir("../chatbot-dataset/examples")
+    os.chdir("./chatbot-dataset/examples")
     file_path = os.getcwd() + f"/{json_file}"
 
     with open(file_path, "r") as file:
@@ -57,7 +57,7 @@ def load_intents(file_path):
     intents = []
     try :
         with open(
-            os.path.join(os.path.dirname(os.path.realpath(__file__)), f"./embedding-metrics/examples/gpt-4-1106-preview/{file_path}")
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), f"./chatbot-dataset/intents/gpt-4-1106-preview/{file_path}")
         ) as f:
             for line in f:
                 intents.append(line.rstrip())

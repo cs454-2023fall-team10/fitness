@@ -12,7 +12,7 @@ DISTANCE_THRESHOLD = 0
 alpha = 0.5
 
 # intent_file_path : GPT가 생성한 user intent들이 담겨있는 파일의 경로.
-intent_file_path = "./embedding-metrics/examples/gpt-4-1106-preview/jobs-homepage"
+intent_file_path = "./chatbot-dataset/intents/gpt-4-1106-preview/jobs-homepage"
 
 
 def get_similarity_threshold(DEPTH_THRESHOLD, DISTANCE_THRESHOLD, current_depth) :
