@@ -13,7 +13,7 @@ def get_best_sentence(intent, choices, similarity_threshold):
         texts.append(select[1]["text"])
 
     scores = utils.sentence_similarity(intent, texts)
-    top_result_idx = np.argpartition(scores, range(1))[0]
+    top_result_idx = np.argsort(scores)[::-1][0]
 
     # if top result if below threshold, we should stop searching
     return "Exit" if scores[top_result_idx] < similarity_threshold else ids[top_result_idx]
