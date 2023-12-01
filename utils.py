@@ -3,6 +3,7 @@ import os
 import networkx as nx
 from . import models
 from .functions import model_name
+import random    
 
 # Sentencebert or OpenAI
 if model_name == "sentence_bert" :
@@ -52,7 +53,6 @@ def make_graph(json_file):
 
     return DG
 
-
 def load_intents(file_path):
     intents = []
     try :
@@ -65,7 +65,7 @@ def load_intents(file_path):
         print(f"Intent for {file_path} does not exist.")
         exit(0)
 
-    return intents
+    return random.sample(intents, min(100, len(intents)))
 
 
 # def get_all_nodes(json_file) :
