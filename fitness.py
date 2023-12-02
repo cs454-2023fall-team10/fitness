@@ -5,6 +5,11 @@ def fitness(graph, file_path):
     user_fitness_sum = 0
 
     DEPTH_THRESHOLD = admin_fitness.get_depth_threshold(graph)
+    
+    # Sometimes, transformation graph can be empty
+    # In this case, return immediately
+    if DEPTH_THRESHOLD == -2**31 :
+        return -2**31
 
     admin_fitness_val = admin_fitness.get_admin_fitness(graph)
 
@@ -22,8 +27,8 @@ def fitness(graph, file_path):
 
     user_fitness_avg = user_fitness_sum / len(users)
 
-
     alpha = functions.alpha
+    print("User fitness: {}, Admin fitness: {}, alpha: {}".format(user_fitness_avg, admin_fitness_val, alpha))
     return float(alpha * user_fitness_avg + (1 - alpha) * admin_fitness_val)
 
 

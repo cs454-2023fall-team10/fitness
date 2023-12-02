@@ -25,7 +25,7 @@ def get_admin_fitness(graph):
         sum_of_diffs += abs(optimal_degrees - len(graph[node]))
 
     fitness = 1 - sum_of_diffs / num_of_edges
-    print(f"admin_fitness: {fitness}")
+    # print(f"admin_fitness: {fitness}")
     return fitness
 
 
