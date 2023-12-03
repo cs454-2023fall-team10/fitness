@@ -1,9 +1,12 @@
 import json
 import os
 import networkx as nx
-from . import models
-from .functions import model_name
 import random
+
+# import functions
+# import models
+
+from . import functions, models
 
 _cache = {}
 
@@ -18,9 +21,9 @@ def _cached(func):
 
 
 # Sentencebert or OpenAI
-if model_name == "sentence_bert":
+if functions.model_name == "sentence_bert":
     model = models.BertEmbedding("jhgan/ko-sroberta-multitask")
-elif model_name == "openai":
+elif functions.model_name == "openai":
     model = models.OpenAIEmbedding("text-embedding-ada-002")
 else:
     print("Select appropriate model. Can fix in functions.py")
@@ -51,12 +54,9 @@ def sentence_similarity(sentence1, sentences):
 
 
 def make_graph(json_file):
-    dir_path = os.getcwd()  # cs353-2023fall-team10/fitness
-    # print(f"dir_path: {dir_path}")
-    os.chdir("./chatbot-dataset/examples")
-    file_path = os.getcwd() + f"/{json_file}"
-
-    with open(file_path, "r") as file:
+    with open(
+        os.path.join(os.getcwd(), "chatbot-dataset/examples", json_file), "r"
+    ) as file:
         data = json.load(file)["sections"]
 
     DG = nx.DiGraph()
@@ -89,7 +89,8 @@ def _load_intents(file_path):
         print(f"Intent for {file_path} does not exist.")
         exit(0)
 
-    return random.sample(intents, min(100, len(intents)))
+    return intents
+    # return random.sample(intents, min(100, len(intents)))
 
 
 load_intents = _cached(_load_intents)
