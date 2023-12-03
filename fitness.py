@@ -1,6 +1,8 @@
 from . import utils, user_fitness, admin_fitness, functions
+import importlib
 
 def fitness(graph, file_path):
+    importlib.reload(functions)
     # nodes = graph.nodes
     user_fitness_sum = 0
 

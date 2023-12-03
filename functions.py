@@ -6,10 +6,10 @@ model_name = "sentence_bert"
 # DISTANCE_THRESHOLD : 허용할 수 있는 distance_threshold의 최댓값.
 # ex) DISTANCE_THRESHOLD = 0 : similarity_threshold 신경 안씀
 #     DISTANCE_THRESHOLD = 1 : 마지막으로 도달한 node의 설명이 intent와 똑같아야 함.
-DISTANCE_THRESHOLD = 0.6
+DISTANCE_THRESHOLD = 0.1
 
 # alpha: user_fitness와 admin_fitness간의 비율, alpha가 늘어날수록 user_fitness의 반영비율 증가
-alpha = 0.8
+alpha = 0.6
 
 # intent_file_path : GPT가 생성한 user intent들이 담겨있는 파일의 경로.
 intent_file_path = "./chatbot-dataset/intents/gpt-4-1106-preview/jobs-homepage"
