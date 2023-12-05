@@ -39,6 +39,7 @@ def get_user_fitness(
     #     + (final_similarity - DISTANCE_THRESHOLD)
     #     - penalty
     # )
+    # return 0.05 * path_length
     return final_similarity
 
 

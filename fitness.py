@@ -10,9 +10,10 @@ from . import admin_fitness, log, user_fitness, utils, functions
 def fitness(graph, file_path):
     user_fitness_sum = 0
 
-    DEPTH_THRESHOLD = admin_fitness.get_depth_threshold(graph)
+    # DEPTH_THRESHOLD = admin_fitness.get_depth_threshold(graph)
+    DEPTH_THRESHOLD = 8
 
-    # admin_fitness_val = admin_fitness.get_admin_fitness(graph)
+    admin_fitness_val = admin_fitness.get_admin_fitness(graph)
 
     # Just a list of intents
     # If some features are added in users in future, we need to fix this
@@ -34,6 +35,7 @@ def fitness(graph, file_path):
     # return float(alpha * user_fitness_avg + (1 - alpha) * admin_fitness_val)
 
     return float(user_fitness_avg)
+    # return float(user_fitness_avg) + 0.05 * admin_fitness_val
 
 
 def _log_fitness(graph_name):
